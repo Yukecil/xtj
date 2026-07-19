@@ -17,11 +17,11 @@
       background: #f4f4f4;
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
       min-height: 100vh;
-      min-height: 100dvh;
       color: #333;
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      padding: 0;
     }
 
     .container {
@@ -32,36 +32,68 @@
       min-height: 100vh;
     }
 
+    /* ===== 顶部导航 ===== */
     .header {
-      height: 60px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 18px;
+      padding: 0 16px;
       background: #fff;
-      border-bottom: 1px solid #ececec;
+      border-bottom: 1px solid #e8e8e8;
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .header-title {
-      font-size: 23px;
+    .header .title {
+      font-size: 18px;
       font-weight: 700;
       color: #333;
-      cursor: pointer;
     }
 
+    /* ===== 操作按钮行 - 只有删除和清空 ===== */
+    .action-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+    .action-bar button {
+      height: 44px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .action-bar button:active {
+      transform: scale(0.94);
+      opacity: 0.8;
+    }
+    .action-bar .btn-delete {
+      background: #ff5d88;
+      color: #fff;
+    }
+    .action-bar .btn-clear {
+      background: #fff;
+      border: 1.5px solid #ff5d88;
+      color: #ff5d88;
+    }
+
+    /* ===== 已选显示区域 ===== */
     .info-panel {
-      padding: 15px;
+      padding: 12px 16px;
       background: #fff;
     }
     .selected-display {
       position: relative;
-      height: 310px;
-      border-radius: 18px;
-      background: #fff;
-      border: 1px solid #dedede;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      height: 200px;
+      border-radius: 14px;
+      background: #fafafa;
+      border: 1px solid #e8e8e8;
       overflow: hidden;
     }
     #selectedText {
@@ -70,99 +102,27 @@
       border: none;
       outline: none;
       resize: none;
-      padding: 20px;
-      font-size: 19px;
-      line-height: 34px;
+      padding: 16px;
+      font-size: 17px;
+      line-height: 32px;
       color: #333;
-      background: #fff;
+      background: #fafafa;
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     }
     #selectedText::placeholder {
       color: #bbb;
     }
 
-    .action-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding: 15px 18px;
-      background: #fff;
-    }
-    .action-bar button {
-      height: 44px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: 0.12s;
-    }
-    .action-bar button:active {
-      transform: scale(0.94);
-      opacity: 0.85;
-    }
-    .action-bar .btn-delete {
-      background: #ff5d88;
-      color: #fff;
-    }
-    .action-bar .btn-copy {
-      background: #ff5d88;
-      color: #fff;
-    }
-    .action-bar .btn-save {
-      background: #ff5d88;
-      color: #fff;
-    }
-    .action-bar .btn-clear {
-      background: #fff;
-      border: 2px solid #ff5d88;
-      color: #ff5d88;
-    }
-    .action-bar .btn-history {
-      background: #ff5d88;
-      color: #fff;
-    }
-
-    .btn-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      padding: 18px;
-      padding-bottom: 40px;
-      background: #fff;
-    }
-    .btn-grid button {
-      height: 52px;
-      border-radius: 14px;
-      background: #fff;
-      border: 1px solid #dcdcdc;
-      font-size: 19px;
-      font-weight: 600;
-      color: #333;
-      transition: 0.1s;
-      box-shadow: none;
-      cursor: pointer;
-      position: relative;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-    .btn-grid button:active {
-      transform: scale(0.92);
-    }
-    .btn-grid button.flash {
-      animation: flashBtn 0.25s ease;
-    }
-    @keyframes flashBtn {
-      0% { background: #ff5d88; border-color: #ff5d88; color: #fff; transform: scale(0.92); }
-      100% { background: #fff; border-color: #dcdcdc; color: #333; transform: scale(1); }
-    }
-
+    /* ===== 统计结果区域 ===== */
     .result-wrapper {
-      margin: 15px;
-      padding: 15px;
+      margin: 12px 16px;
+      padding: 12px;
       border-radius: 12px;
-      background: #fafafa;
+      background: #fff;
       border: 1px solid #eee;
+      min-height: 100px;
+      max-height: 320px;
+      overflow-y: auto;
     }
     .result-wrapper::-webkit-scrollbar {
       width: 3px;
@@ -176,11 +136,12 @@
     }
 
     .result-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px;
-      border: 1px solid #ececec;
-      margin-bottom: 10px;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border: 1px solid #eee;
+      min-height: 52px;
     }
     .result-card:last-child {
       margin-bottom: 0;
@@ -189,53 +150,109 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      color: rgba(0, 0, 0, 0.25);
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.3);
       margin-bottom: 6px;
     }
     .result-card .r-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 6px;
     }
     .result-card .r-items span {
-      padding: 3px 12px;
+      padding: 4px 12px;
       border-radius: 6px;
-      background: rgba(0, 0, 0, 0.03);
+      background: #fff;
       font-size: 13px;
       color: #555;
-      border: 1px solid rgba(0, 0, 0, 0.04);
+      border: 1px solid #e8e8e8;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
     }
     .result-card .r-items span.hot {
-      background: rgba(255, 93, 136, 0.08);
-      border-color: rgba(255, 93, 136, 0.15);
+      background: rgba(255, 93, 136, 0.1);
+      border-color: #ff5d88;
       color: #ff5d88;
     }
     .result-card .r-count {
       font-weight: 600;
-      font-size: 12px;
+      font-size: 13px;
       color: #ff5d88;
     }
     .empty-result {
       padding: 20px;
       text-align: center;
-      color: rgba(0, 0, 0, 0.12);
+      color: rgba(0, 0, 0, 0.15);
       font-size: 13px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
+    /* ===== 按钮网格 ===== */
+    .btn-section {
+      background: #fff;
+      padding: 4px 16px 8px 16px;
+    }
+    .btn-section:last-child {
+      padding-bottom: 30px;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      padding: 6px 0;
+    }
+
+    .btn-grid button {
+      height: 46px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #dcdcdc;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      transition: 0.1s;
+      cursor: pointer;
+      user-select: none;
+      -webkit-touch-callout: none;
+      position: relative;
+    }
+    .btn-grid button:active {
+      transform: scale(0.92);
+    }
+    .btn-grid button.flash {
+      animation: flashBtn 0.25s ease;
+    }
+    @keyframes flashBtn {
+      0% { background: #ff5d88; border-color: #ff5d88; color: #fff; transform: scale(0.92); }
+      100% { background: #fff; border-color: #dcdcdc; color: #333; transform: scale(1); }
+    }
+
+    .section-label {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.2);
+      padding: 8px 0 2px 0;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== Toast ===== */
     .toast {
       position: fixed;
-      bottom: 50px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(40, 40, 40, 0.92);
       color: #fff;
-      padding: 10px 24px;
-      border-radius: 30px;
-      font-size: 15px;
-      border: none;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 14px;
       z-index: 99999;
-      animation: toastIn 0.25s ease;
+      animation: toastIn 0.2s ease;
       pointer-events: none;
       white-space: nowrap;
     }
@@ -244,162 +261,88 @@
       to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
     }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100000;
-      padding: 16px;
-      animation: fadeIn 0.15s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .modal-content {
-      background: #fff;
-      border-radius: 14px;
-      padding: 18px;
-      width: 100%;
-      max-width: 380px;
-      max-height: 75vh;
-      max-height: 75dvh;
-      overflow-y: auto;
-    }
-    .modal-content::-webkit-scrollbar {
-      width: 3px;
-    }
-    .modal-content::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .modal-content::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.08);
-      border-radius: 2px;
-    }
-    .modal-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-align: center;
-      color: #333;
-    }
-    .modal-content .history-item {
-      background: rgba(0, 0, 0, 0.02);
-      border-radius: 6px;
-      padding: 8px 10px;
-      margin-bottom: 4px;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      cursor: pointer;
-      transition: 0.1s;
-    }
-    .modal-content .history-item:active {
-      background: rgba(0, 0, 0, 0.05);
-    }
-    .modal-content .history-time {
-      font-size: 9px;
-      color: rgba(0, 0, 0, 0.2);
-    }
-    .modal-content .history-text {
-      font-size: 11px;
-      color: rgba(0, 0, 0, 0.4);
-      margin: 3px 0;
-    }
-    .modal-close-btn {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.04);
-      color: #888;
-      font-size: 13px;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: 0.1s;
-    }
-    .modal-close-btn:active {
-      background: rgba(0, 0, 0, 0.08);
-    }
-    .history-clear-btn {
-      padding: 4px 14px;
-      border: 1px solid rgba(231, 76, 60, 0.1);
-      border-radius: 4px;
-      background: rgba(231, 76, 60, 0.04);
-      color: #e74c3c;
-      font-size: 10px;
-      cursor: pointer;
-      transition: 0.1s;
-    }
-    .history-clear-btn:active {
-      background: rgba(231, 76, 60, 0.08);
-    }
-    .history-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
+    /* ===== 响应式 ===== */
     @media (max-width: 400px) {
       .btn-grid {
         gap: 8px;
-        padding: 12px;
-        padding-bottom: 30px;
       }
       .btn-grid button {
-        height: 44px;
-        font-size: 16px;
-        border-radius: 12px;
+        height: 40px;
+        font-size: 14px;
+        border-radius: 8px;
       }
       .action-bar {
         gap: 8px;
-        padding: 12px 14px;
+        padding: 10px 12px;
       }
       .action-bar button {
         height: 38px;
-        font-size: 12px;
-      }
-      .header-title {
-        font-size: 19px;
+        font-size: 14px;
       }
       .selected-display {
-        height: 220px;
+        height: 160px;
       }
       #selectedText {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 28px;
-        padding: 14px;
+        padding: 12px;
+      }
+      .header .title {
+        font-size: 16px;
+      }
+      .btn-section {
+        padding: 4px 12px 6px 12px;
+      }
+      .result-wrapper {
+        padding: 10px;
+        margin: 10px 12px;
+      }
+      .result-card {
+        padding: 10px 12px;
+      }
+      .result-card .r-items span {
+        font-size: 12px;
+        padding: 3px 10px;
       }
     }
     @media (max-width: 360px) {
       .btn-grid {
-        gap: 5px;
-        padding: 8px;
-        padding-bottom: 20px;
+        gap: 6px;
       }
       .btn-grid button {
-        height: 38px;
-        font-size: 13px;
-        border-radius: 10px;
+        height: 34px;
+        font-size: 12px;
+        border-radius: 6px;
       }
       .action-bar {
         gap: 5px;
-        padding: 10px 12px;
+        padding: 8px 10px;
       }
       .action-bar button {
         height: 34px;
-        font-size: 11px;
-        border-radius: 8px;
+        font-size: 13px;
       }
       .selected-display {
-        height: 180px;
+        height: 140px;
       }
       #selectedText {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 24px;
         padding: 10px;
+      }
+      .btn-section {
+        padding: 4px 10px 4px 10px;
+      }
+      .result-wrapper {
+        padding: 8px;
+        margin: 8px 10px;
+      }
+      .result-card {
+        padding: 8px 10px;
+      }
+      .result-card .r-items span {
+        font-size: 11px;
+        padding: 2px 8px;
       }
     }
   </style>
@@ -407,125 +350,180 @@
 <body>
 <div class="container">
 
+  <!-- ===== 顶部导航 ===== -->
   <div class="header">
-    <div class="header-title" id="titleBtn">挑码助手</div>
+    <span class="title">挑码助手</span>
   </div>
 
+  <!-- ===== 操作按钮 - 只有删除和清空 ===== -->
+  <div class="action-bar">
+    <button class="btn-delete" id="deleteBtn">删除</button>
+    <button class="btn-clear" id="clearBtn">清空</button>
+  </div>
+
+  <!-- ===== 已选显示 ===== -->
   <div class="info-panel">
     <div class="selected-display">
       <textarea id="selectedText" readonly placeholder="点击下面按钮开始选号"></textarea>
     </div>
   </div>
 
-  <div class="action-bar">
-    <button class="btn-delete" id="deleteBtn">删除</button>
-    <button class="btn-copy" id="copyBtn">复制</button>
-    <button class="btn-save" id="saveBtn">保存</button>
-    <button class="btn-clear" id="clearBtn">清空数据</button>
-    <button class="btn-history" id="historyBtn">历史记录</button>
-  </div>
-
-  <div class="btn-grid">
-    <button data-value="单">单</button>
-    <button data-value="双">双</button>
-    <button data-value="大单">大单</button>
-    <button data-value="大双">大双</button>
-    <button data-value="合单">合单</button>
-    <button data-value="合双">合双</button>
-    <button data-value="大">大</button>
-    <button data-value="小">小</button>
-    <button data-value="小单">小单</button>
-    <button data-value="小双">小双</button>
-    <button data-value="合大">合大</button>
-    <button data-value="合小">合小</button>
-    <button data-value="金">金</button>
-    <button data-value="木">木</button>
-    <button data-value="水">水</button>
-    <button data-value="火">火</button>
-    <button data-value="土">土</button>
-    <button data-value="红波">红波</button>
-    <button data-value="蓝波">蓝波</button>
-    <button data-value="绿波">绿波</button>
-    <button data-value="家禽">家禽</button>
-    <button data-value="野兽">野兽</button>
-    <button data-value="红单">红单</button>
-    <button data-value="红双">红双</button>
-    <button data-value="蓝单">蓝单</button>
-    <button data-value="蓝双">蓝双</button>
-    <button data-value="绿单">绿单</button>
-    <button data-value="绿双">绿双</button>
-    <button data-value="鼠">鼠</button>
-    <button data-value="牛">牛</button>
-    <button data-value="虎">虎</button>
-    <button data-value="兔">兔</button>
-    <button data-value="龙">龙</button>
-    <button data-value="蛇">蛇</button>
-    <button data-value="马">马</button>
-    <button data-value="羊">羊</button>
-    <button data-value="猴">猴</button>
-    <button data-value="鸡">鸡</button>
-    <button data-value="狗">狗</button>
-    <button data-value="猪">猪</button>
-    <button data-value="0尾">0尾</button>
-    <button data-value="1尾">1尾</button>
-    <button data-value="2尾">2尾</button>
-    <button data-value="3尾">3尾</button>
-    <button data-value="4尾">4尾</button>
-    <button data-value="5尾">5尾</button>
-    <button data-value="6尾">6尾</button>
-    <button data-value="7尾">7尾</button>
-    <button data-value="8尾">8尾</button>
-    <button data-value="9尾">9尾</button>
-    <button data-value="大尾">大尾</button>
-    <button data-value="小尾">小尾</button>
-    <button data-value="0头">0头</button>
-    <button data-value="1头">1头</button>
-    <button data-value="2头">2头</button>
-    <button data-value="3头">3头</button>
-    <button data-value="4头">4头</button>
-    <button data-value="1门">1门</button>
-    <button data-value="2门">2门</button>
-    <button data-value="3门">3门</button>
-    <button data-value="4门">4门</button>
-    <button data-value="5门">5门</button>
-    <button data-value="1段">1段</button>
-    <button data-value="2段">2段</button>
-    <button data-value="3段">3段</button>
-    <button data-value="4段">4段</button>
-    <button data-value="5段">5段</button>
-    <button data-value="6段">6段</button>
-    <button data-value="7段">7段</button>
-    <button data-value="1合">1合</button>
-    <button data-value="2合">2合</button>
-    <button data-value="3合">3合</button>
-    <button data-value="4合">4合</button>
-    <button data-value="5合">5合</button>
-    <button data-value="6合">6合</button>
-    <button data-value="7合">7合</button>
-    <button data-value="8合">8合</button>
-    <button data-value="9合">9合</button>
-    <button data-value="10合">10合</button>
-    <button data-value="11合">11合</button>
-    <button data-value="12合">12合</button>
-    <button data-value="13合">13合</button>
-    <button data-value="0头单">0头单</button>
-    <button data-value="1头单">1头单</button>
-    <button data-value="2头单">2头单</button>
-    <button data-value="3头单">3头单</button>
-    <button data-value="4头单">4头单</button>
-    <button data-value="0头双">0头双</button>
-    <button data-value="1头双">1头双</button>
-    <button data-value="2头双">2头双</button>
-    <button data-value="3头双">3头双</button>
-    <button data-value="4头双">4头双</button>
-  </div>
-
-  <div class="result-wrapper">
+  <!-- ===== 统计结果 ===== -->
+  <div class="result-wrapper" id="resultWrapper">
     <div id="result"><div class="empty-result">选号后自动统计</div></div>
   </div>
+
+  <!-- ===== 按钮网格 ===== -->
+  <div class="btn-section">
+    <div class="section-label">单双大小</div>
+    <div class="btn-grid">
+      <button data-value="单">单</button>
+      <button data-value="双">双</button>
+      <button data-value="大单">大单</button>
+      <button data-value="大双">大双</button>
+      <button data-value="合单">合单</button>
+      <button data-value="合双">合双</button>
+      <button data-value="大">大</button>
+      <button data-value="小">小</button>
+      <button data-value="小单">小单</button>
+      <button data-value="小双">小双</button>
+      <button data-value="合大">合大</button>
+      <button data-value="合小">合小</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">五行</div>
+    <div class="btn-grid">
+      <button data-value="金">金</button>
+      <button data-value="木">木</button>
+      <button data-value="水">水</button>
+      <button data-value="火">火</button>
+      <button data-value="土">土</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">波色 / 家禽野兽 / 波色单双</div>
+    <div class="btn-grid">
+      <button data-value="红波">红波</button>
+      <button data-value="蓝波">蓝波</button>
+      <button data-value="绿波">绿波</button>
+      <button data-value="家禽">家禽</button>
+      <button data-value="野兽">野兽</button>
+      <button data-value="红单">红单</button>
+      <button data-value="红双">红双</button>
+      <button data-value="蓝单">蓝单</button>
+      <button data-value="蓝双">蓝双</button>
+      <button data-value="绿单">绿单</button>
+      <button data-value="绿双">绿双</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">生肖</div>
+    <div class="btn-grid">
+      <button data-value="鼠">鼠</button>
+      <button data-value="牛">牛</button>
+      <button data-value="虎">虎</button>
+      <button data-value="兔">兔</button>
+      <button data-value="龙">龙</button>
+      <button data-value="蛇">蛇</button>
+      <button data-value="马">马</button>
+      <button data-value="羊">羊</button>
+      <button data-value="猴">猴</button>
+      <button data-value="鸡">鸡</button>
+      <button data-value="狗">狗</button>
+      <button data-value="猪">猪</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">尾数</div>
+    <div class="btn-grid">
+      <button data-value="0尾">0尾</button>
+      <button data-value="1尾">1尾</button>
+      <button data-value="2尾">2尾</button>
+      <button data-value="3尾">3尾</button>
+      <button data-value="4尾">4尾</button>
+      <button data-value="5尾">5尾</button>
+      <button data-value="6尾">6尾</button>
+      <button data-value="7尾">7尾</button>
+      <button data-value="8尾">8尾</button>
+      <button data-value="9尾">9尾</button>
+      <button data-value="大尾">大尾</button>
+      <button data-value="小尾">小尾</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">头数 / 门数</div>
+    <div class="btn-grid">
+      <button data-value="0头">0头</button>
+      <button data-value="1头">1头</button>
+      <button data-value="2头">2头</button>
+      <button data-value="3头">3头</button>
+      <button data-value="4头">4头</button>
+      <button data-value="1门">1门</button>
+      <button data-value="2门">2门</button>
+      <button data-value="3门">3门</button>
+      <button data-value="4门">4门</button>
+      <button data-value="5门">5门</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">段数</div>
+    <div class="btn-grid">
+      <button data-value="1段">1段</button>
+      <button data-value="2段">2段</button>
+      <button data-value="3段">3段</button>
+      <button data-value="4段">4段</button>
+      <button data-value="5段">5段</button>
+      <button data-value="6段">6段</button>
+      <button data-value="7段">7段</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">合数</div>
+    <div class="btn-grid">
+      <button data-value="1合">1合</button>
+      <button data-value="2合">2合</button>
+      <button data-value="3合">3合</button>
+      <button data-value="4合">4合</button>
+      <button data-value="5合">5合</button>
+      <button data-value="6合">6合</button>
+      <button data-value="7合">7合</button>
+      <button data-value="8合">8合</button>
+      <button data-value="9合">9合</button>
+      <button data-value="10合">10合</button>
+      <button data-value="11合">11合</button>
+      <button data-value="12合">12合</button>
+      <button data-value="13合">13合</button>
+    </div>
+  </div>
+
+  <div class="btn-section">
+    <div class="section-label">头单 / 头双</div>
+    <div class="btn-grid">
+      <button data-value="0头单">0头单</button>
+      <button data-value="1头单">1头单</button>
+      <button data-value="2头单">2头单</button>
+      <button data-value="3头单">3头单</button>
+      <button data-value="4头单">4头单</button>
+      <button data-value="0头双">0头双</button>
+      <button data-value="1头双">1头双</button>
+      <button data-value="2头双">2头双</button>
+      <button data-value="3头双">3头双</button>
+      <button data-value="4头双">4头双</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
+  // ========== 分类映射 ==========
   const CATEGORY_MAP = {
     '单': '单双大小', '双': '单双大小', '大单': '单双大小', '大双': '单双大小',
     '合单': '单双大小', '合双': '单双大小', '大': '单双大小', '小': '单双大小',
@@ -559,6 +557,7 @@
   const textarea = document.getElementById('selectedText');
   const resultEl = document.getElementById('result');
 
+  // ========== Toast ==========
   function toast(text) {
     const existing = document.querySelector('.toast');
     if (existing) existing.remove();
@@ -574,28 +573,7 @@
     }, 1500);
   }
 
-  function copyText(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => toast('✅ 已复制')).catch(() => fallbackCopy(text));
-    } else {
-      fallbackCopy(text);
-    }
-  }
-  function fallbackCopy(text) {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.cssText = 'position:fixed;left:-9999px;';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); toast('✅ 已复制'); } catch (e) { toast('❌ 复制失败'); }
-    document.body.removeChild(ta);
-  }
-
-  function getTimeStr() {
-    const d = new Date();
-    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
-  }
-
+  // ========== 添加 ==========
   function addItem(value) {
     selectedList.push(value);
     updateUI();
@@ -613,6 +591,7 @@
     });
   }
 
+  // ========== 删除最后一个 ==========
   function deleteLastItem() {
     if (selectedList.length === 0) {
       toast('⚠️ 没有可删除的');
@@ -624,14 +603,7 @@
     toast('➖ 已删除: ' + removed);
   }
 
-  function updateUI() {
-    if (selectedList.length === 0) {
-      textarea.value = '';
-    } else {
-      textarea.value = selectedList.join('、');
-    }
-  }
-
+  // ========== 清空全部 ==========
   function clearAll() {
     if (selectedList.length === 0) {
       toast('⚠️ 没有数据');
@@ -644,13 +616,24 @@
     toast('🗑️ 已清空');
   }
 
+  // ========== UI更新 ==========
+  function updateUI() {
+    if (selectedList.length === 0) {
+      textarea.value = '';
+    } else {
+      textarea.value = selectedList.join('、');
+    }
+    textarea.scrollTop = textarea.scrollHeight;
+  }
+
+  // ========== 统计 ==========
   function doStats() {
     if (selectedList.length === 0) {
       resultEl.innerHTML = '<div class="empty-result">选号后自动统计</div>';
       currentResult = [];
       return;
     }
-    // 统计频次
+
     var countMap = {};
     selectedList.forEach(function(item) {
       if (!countMap[item]) countMap[item] = 0;
@@ -699,82 +682,16 @@
     resultEl.innerHTML = html;
   }
 
-  function saveHistory() {
-    if (selectedList.length === 0) { toast('⚠️ 没有数据可保存'); return; }
-    var text = selectedList.join('、');
-    var history = JSON.parse(localStorage.getItem('pick_history') || '[]');
-    history.unshift({ time: getTimeStr(), text: text, data: selectedList.slice() });
-    if (history.length > 50) history.length = 50;
-    localStorage.setItem('pick_history', JSON.stringify(history));
-    toast('💾 已保存到历史记录');
-  }
+  // ========== 事件绑定 ==========
 
-  function formatResult() {
-    if (currentResult.length === 0) return '暂无统计结果';
-    var text = '🎯 挑码助手 统计结果\n' + getTimeStr() + '\n共 ' + selectedList.length + ' 次\n\n';
-    currentResult.forEach(function(group) {
-      var total = group.items.reduce(function(s, i) { return s + i[1]; }, 0);
-      text += '【' + group.category + '】' + total + '次\n';
-      group.items.forEach(function(item) {
-        text += '  ' + item[0] + '：' + item[1] + '次\n';
-      });
-      text += '\n';
-    });
-    text += '📝 原始：' + selectedList.join('、');
-    return text;
-  }
-
-  function showHistory() {
-    var history = JSON.parse(localStorage.getItem('pick_history') || '[]');
-    var overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    var html = '<div class="modal-content"><div class="modal-title">📜 历史记录</div><div class="history-top"><span style="font-size:9px;color:rgba(0,0,0,0.2)">共' + history.length + '条</span><button class="history-clear-btn" id="clearHistoryBtn">清空全部</button></div>';
-    if (history.length === 0) {
-      html += '<div style="text-align:center;color:rgba(0,0,0,0.10);padding:20px;font-size:13px;">暂无记录</div>';
-    } else {
-      history.slice(0, 30).forEach(function(h, i) {
-        html += '<div class="history-item" data-idx="' + i + '"><div class="history-time">' + h.time + '</div><div class="history-text">' + h.text + '</div></div>';
-      });
-    }
-    html += '<button class="modal-close-btn">关闭</button></div>';
-    overlay.innerHTML = html;
-    document.body.appendChild(overlay);
-
-    overlay.querySelector('.modal-close-btn').addEventListener('click', function() { overlay.remove(); });
-    overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
-
-    overlay.querySelectorAll('.history-item').forEach(function(el) {
-      el.addEventListener('click', function() {
-        var h = history[parseInt(this.dataset.idx)];
-        if (h && h.data) {
-          selectedList = h.data.slice();
-          updateUI();
-          overlay.remove();
-          toast('📥 已恢复');
-          doStats();
-        }
-      });
-    });
-
-    var clearBtnHist = overlay.querySelector('#clearHistoryBtn');
-    if (clearBtnHist) {
-      clearBtnHist.addEventListener('click', function() {
-        if (confirm('确定清空所有历史记录吗？')) {
-          localStorage.removeItem('pick_history');
-          overlay.remove();
-          toast('🗑️ 已清空');
-        }
-      });
-    }
-  }
-
-  // 按钮点击 +1
+  // 按钮点击选号
   document.querySelectorAll('.btn-grid button').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
       var val = this.dataset.value;
       if (val) addItem(val);
     });
+
     // 长按删除最后一个（移动端）
     var timer = null;
     btn.addEventListener('touchstart', function(e) {
@@ -791,6 +708,7 @@
     btn.addEventListener('touchmove', function() {
       if (timer) { clearTimeout(timer); timer = null; }
     });
+
     // 右键删除最后一个（桌面）
     btn.addEventListener('contextmenu', function(e) {
       e.preventDefault();
@@ -798,28 +716,11 @@
     });
   });
 
+  // 操作按钮
   document.getElementById('deleteBtn').addEventListener('click', deleteLastItem);
-  document.getElementById('copyBtn').addEventListener('click', function() {
-    var text = formatResult();
-    if (text === '暂无统计结果') { toast('⚠️ 请先选号'); return; }
-    copyText(text);
-  });
-  document.getElementById('saveBtn').addEventListener('click', saveHistory);
   document.getElementById('clearBtn').addEventListener('click', clearAll);
-  document.getElementById('historyBtn').addEventListener('click', showHistory);
 
-  document.getElementById('titleBtn').addEventListener('dblclick', showHistory);
-  var titleTimer = null;
-  document.getElementById('titleBtn').addEventListener('touchstart', function() {
-    titleTimer = setTimeout(showHistory, 600);
-  });
-  document.getElementById('titleBtn').addEventListener('touchend', function() {
-    clearTimeout(titleTimer);
-  });
-  document.getElementById('titleBtn').addEventListener('touchmove', function() {
-    clearTimeout(titleTimer);
-  });
-
+  // 键盘快捷键
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { clearAll(); }
     if (e.key === 'Backspace' && !e.target.matches('textarea, input')) {
@@ -828,12 +729,11 @@
     }
   });
 
+  // ========== 初始化 ==========
   updateUI();
   console.log('🎯 挑码助手已加载');
   console.log('💡 点击按钮选号 | 长按/右键删除最后一个');
-  console.log('💡 双击标题查看历史记录');
-  console.log('💡 点击「保存」才会存入历史');
-  console.log('⌨️  Backspace 删除最后一个 | ESC 清空');
+  console.log('⌨️  Backspace 删除 | ESC 清空');
 </script>
 </body>
 </html>
